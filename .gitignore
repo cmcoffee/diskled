@@ -1,0 +1,22 @@
+# osx/synology noise
+.DS_Store
+@eaDir
+profile
+
+# xcode noise
+build/*
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
+tasks/classified/*
+classified.go
+
+# svn & cvs
+update.sh
+.svn
+CVS
