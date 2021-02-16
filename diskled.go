@@ -63,9 +63,8 @@ func get_disk_stats() {
 		split_len := len(split)
 		if split_len > 15 {
 			name := split[split_len - 16]
-			access_map[name] = false
-
 			if val, ok := stat_map[name]; ok {
+				access_map[name] = false
 				if txt_len == len(val) {
 					for i := 0; i < len(txt); i++ {
 						if val[i] != txt[i] {
@@ -74,9 +73,8 @@ func get_disk_stats() {
 						}
 					}
 				}
-
+				stat_map[name] = txt
 			}
-			stat_map[name] = txt
 		}
 	}
 	return
@@ -106,6 +104,7 @@ func main() {
 			fatal(fmt.Sprint("Incorrect value for --disks, syntax is --disks=<disk>:<gpio>", v))
 		}
 		disks = append(disks, split[0])
+		stat_map[split[0]] = "init"
 		num, err := strconv.Atoi(split[1])
 		if err != nil {
 			fatal(fmt.Sprintf("gpio must be numeric value, got: --disks=%s, syntax is --disks=<disk>:<gpio>", v))
@@ -117,6 +116,7 @@ func main() {
 		eflag.Usage()
 		os.Exit(1)
 	}
+	get_disk_stats()
 
 	for {
 		get_disk_stats()
